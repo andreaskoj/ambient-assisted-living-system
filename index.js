@@ -28,7 +28,7 @@ io.on('connection', function(socket){
 });
 
 // server init 
-http.listen(3000, function(){
+http.listen(80, function(){
   var host = http.address().address
   var port = http.address().port
   console.log("Example app listening at http://%s:%s", host, port)
