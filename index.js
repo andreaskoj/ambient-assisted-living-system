@@ -10,6 +10,10 @@ app.use(express.static('public'), function(req,res,next){
     next();
 })
 
+app.get('/', function(req, res){
+    res.sendFile(path.join(__dirname+'/public/index.html'));
+ });
+
 //routers
 app.get('/house',function(req,res) {
     res.sendFile(path.join(__dirname+'/public/house.html'));
