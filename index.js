@@ -6,9 +6,9 @@ var io = require('socket.io')(http);
 const router = express.Router();
 
 // serving static files
-app.use(express.static('public'), function(req,res,next){	
-    next();
-})
+//app.use(express.static('public'), function(req,res,next){	
+//    next();
+//})
 
 app.get('/', function(req, res){
     res.sendFile(path.join(__dirname+'/public/index.html'));
@@ -32,8 +32,9 @@ io.on('connection', function(socket){
 });
 
 // server init 
-http.listen(port = process.env.PORT || 80, function(){
+http.listen(port = process.env.PORT || 8000, function(){
   var host = http.address().address
   var port = http.address().port
   console.log("Example app listening at http://%s:%s", host, port)
 });
+
