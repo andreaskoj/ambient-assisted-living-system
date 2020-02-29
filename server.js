@@ -5,10 +5,14 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 const router = express.Router();
 
-// serving static files
+//serving static files
 app.use(express.static('public'), function(req,res,next){	
     next();
 })
+
+app.get('/', function(req, res){
+    res.sendFile(path.join(__dirname+'/public/index.html'));
+ });
 
 //routers
 app.get('/house',function(req,res) {
@@ -28,8 +32,9 @@ io.on('connection', function(socket){
 });
 
 // server init 
-http.listen(80, function(){
+http.listen(port = process.env.PORT || 3000, function(){
   var host = http.address().address
   var port = http.address().port
-  console.log("Example app listening at http://%s:%s", host, port)
+  console.log(`Listening on ${port}`);
 });
+
