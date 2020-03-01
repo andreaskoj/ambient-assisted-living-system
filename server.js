@@ -10,10 +10,6 @@ app.use(express.static('public'), function(req,res,next){
     next();
 })
 
-app.get('/', function(req, res){
-    res.sendFile(path.join(__dirname+'/public/index.html'));
- });
-
 //routers
 app.get('/house',function(req,res) {
     res.sendFile(path.join(__dirname+'/public/house.html'));
@@ -28,7 +24,20 @@ app.get('/log',function(req,res) {
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+
+  socket.on('house', function(msg){
+    console.log('Message from house: ' + msg.subject + ' ' + msg.value);
+    io.emit('house', msg);
+  });
+
+  socket.on('dashboard', function(msg){
+    console.log('massage: ' + msg);
+  });
+
+  socket.on('msg', function(msg){
+    console.log('massage: ' + msg);
+  });
+ 
 });
 
 // server init 
