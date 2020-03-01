@@ -26,6 +26,10 @@ let toggleWindowStatus = (status) => {
     }
 }
 
+// testing function to trigger events
+setInterval(function(){  $("#window-btn").click(); }, 2000);
+
+
 // run when DOM loaded
 $(document).ready(function () {
     $("#window-btn").click(function() {

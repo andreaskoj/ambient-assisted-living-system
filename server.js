@@ -28,6 +28,8 @@ io.on('connection', function(socket){
   socket.on('house', function(msg){
     console.log('Message from house: ' + msg.subject + ' ' + msg.value);
     io.emit('house', msg);
+   // emitting to log
+    io.emit('log', msg);
   });
 
   socket.on('dashboard', function(msg){
