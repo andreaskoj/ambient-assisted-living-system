@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 const router = express.Router();
 
 //serving static files
-app.use(express.static('public'), function(req,res,next){	
+app.use(express.static(__dirname + "/public/"), function(req,res,next){	
     next();
 })
 
@@ -25,9 +25,13 @@ app.get('/log',function(req,res) {
 
 io.on('connection', function(socket){
 
+  // messages from house
   socket.on('house', function(msg){
     console.log('Message from house: ' + msg.subject + ' ' + msg.value);
-    io.emit('house', msg);
+
+    // emitting to dashboard
+    io.emit('dashboard', msg);
+
    // emitting to log
     io.emit('log', msg);
   });

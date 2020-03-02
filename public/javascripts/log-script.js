@@ -7,7 +7,7 @@ function logFortmatter(message) {
 
     console.log(subject);
     console.log(msg);
-    return (dateString + ' | SUBJECT: ' + subject + '  | MESSAGE: ' + msg + '<br>')
+    return ('<div><span>' + dateString + '</span> | <span>SUBJECT: ' + subject + '</span>  | <span>MESSAGE: ' + msg + '</span></div>')
 }
 
 $(document).ready(function () {
