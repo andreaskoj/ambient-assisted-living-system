@@ -13,6 +13,18 @@
                 margin-bottom: 5px;;
                 width: 150px;
             }
+
+            .green {
+                color: green;
+            }
+
+            .red {
+                color: red;
+            }
+
+            .input {
+                width: 100px;
+            }
             
         </style>
     </head>
@@ -24,25 +36,36 @@
             <br>
             <div class="row">
                 <div class="col">
+                    
                     <h2>Person</h2>
                     <p class="status-sec">Process status:</p> <b><span id="pers-status"></span></b>
-                    <div><span class="status-sec">Steps: </span><span id="steps-number">0</span></div>
+                    <div><span class="status-sec">Steps (acc): </span><span id="steps-number">0</span></div>
                     <div><span class="status-sec">Heart rate (bmp): </span><span id="heart-number">0</span></div>
                     <div><span class="status-sec">Glucose (mg/dl): </span><span id="glucose-number">0</span></div>
                     
                     <h2>Windows / Doors </h2>
                     <p class="status-sec">Process status:</p> <b><span id="windoo-status"></span></b>
                     <div><span class="status-sec">Window 1: <span id="win1-status">closed</span></span><button id="win1-btn">Toggle window</button></div>
-                    
                     <div><span class="status-sec">Window 2: <span id="win2-status">closed</span></span><button id="win2-btn">Toggle window</button></div>
-                    
                     <div><span class="status-sec">Door 1: <span id="doo1-status">closed</span></span><button id="doo1-btn">Toggle door</button></div>
+                    
+                    <h2>Smoke detection</h2>
+                    <p class="status-sec">Process status:</p> <b><span id="smoke-status"></span></b>
+                    <div><span class="status-sec">Smoke detected: </span><span id="smoke-value" class="green">NO</span></div>
+                    
                     <h2>Face recognition</h2>
                     <p>Process status:</p>
                 </div>
                 <div class="col">
                     <h2>Uploading photos</h2>
-                    <p>Process status:</p>
+                    <p class="status-sec">Process status:</p> <b><span id="uploading-status"></span></b>
+                    <div><span class="status-sec">Photos in carusel: </span><span id="photo-value"></span></div>
+                    <div>
+                        <span >Add: </span>
+                        <input type="text" class="input" id="input-photo" placeholder="Photo name">
+                        <button id="pho-btn">Upload photo</button>
+                        
+                    </div>
                     
                     <h2>Composite logic</h2>
                     <p>Process status:</p>

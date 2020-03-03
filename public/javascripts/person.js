@@ -1,8 +1,8 @@
 // CODE FOR WINDOW / DOOR PROCESS
 
 importScripts('/socket.io/socket.io.js');
+importScripts('lib.js');
 
-// var
 const clientType = "house";
 const socket = io();
 
@@ -14,32 +14,30 @@ function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
 
+function publish(subject, message) {
+    socket.emit (subject, message);
+}  
+
 // interval for steps
 setInterval(function(){
       steps.value += getRndInteger(0, 150);
-      
+      publish(clientType, steps);
       postMessage(steps); 
 
-    }, getRndInteger(0,10000));
+    }, getRndInteger(3000,10000));
 
 // interval for heart rate
 setInterval(function(){
       heart.value = getRndInteger(60, 100);
-      
+      publish(clientType, heart);
       postMessage(heart); 
 
-    }, getRndInteger(0,10000));
+    }, getRndInteger(5000,10000));
 
 // interval for glucose
 setInterval(function(){
     glucose.value = getRndInteger(70, 140);
-    
+    publish(clientType, heart);
     postMessage(glucose); 
 
-    }, getRndInteger(0,10000));
-
-
-onmessage = function(e) {
-    //let objectTag = e.data;
-    
-  }
+    }, getRndInteger(4000,10000));

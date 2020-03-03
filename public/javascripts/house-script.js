@@ -12,19 +12,19 @@ const Gateway = {
 Object.freeze(Gateway);
 
 
-// init workers
+// init workers (processes)
 const personProcess = new Worker('javascripts/person.js');
 
 const windowsDoorProcess = new Worker('javascripts/windows.js');
 
+const smokeSensorProcess = new Worker('javascripts/smoke.js');
+
+const uploadingPhotosProcess = new Worker('javascripts/upload.js');
 
 //setInterval(function(){ windowsProcess.postMessage('Hello World');}, 2000);
 
-//var smokeSensorProcess = new Worker('javascripts/windows.js');
-
 //var faceRecognitionProcess = new Worker('javascripts/windows.js');
 
-//var uploadingPhotosProcess = new Worker('sjavascripts/windows.js');
 
 //var exectueCompositLogicProcess = new Worker('javascripts/windows.js');
 
@@ -51,6 +51,15 @@ $(document).ready(function () {
     $("#doo1-btn").click(function() {
         windowsDoorProcess.postMessage("door1");;
     });    
+
+    $("#pho-btn").click(function() {
+        let name = $("#input-photo").val();
+        uploadingPhotosProcess.postMessage(name);
+        // clean input
+        $("#input-photo").val('');
+    });   
+
+
 });
 
 
@@ -59,29 +68,36 @@ function displayProcesessStatus() {
 
     let ref1 = $("#windoo-status");
     let ref2 =  $("#pers-status");
+    let ref3 =  $("#smoke-status");
+    let ref4 =  $("#uploading-status");
 
     statusUpdate1 = (ref) => (personProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
     statusUpdate2 = (ref) => (windowsDoorProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate2 = (ref) => (smokeSensorProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate2 = (ref) => (uploadingPhotosProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
     
 
     statusUpdate1(ref1);
     statusUpdate2(ref2);
+    statusUpdate2(ref3);
+    statusUpdate2(ref4);
 
 }
-function handleMessageFromWorker(msg) {
 
+// message handler for windows / door process
+windowsDoorProcess.onmessage = function(e) {
+    let data = e.data;
 
-    console.log('incoming message from worker, msg:', msg.data);
-    if(msg.data.subject == 'window1')
-        $("#win1-status").text(msg.data.value);
-    else if (msg.data.subject == 'window2')
-        $("#win2-status").text(msg.data.value);
-    else if (msg.data.subject == 'door1')
-        $("#doo1-status").text(msg.data.value);
-}
+    if(data.subject == 'window1')
+        $("#win1-status").text(data.value);
+    else if (data.subject == 'window2')
+        $("#win2-status").text(data.value);
+    else if (data.subject == 'door1')
+        $("#doo1-status").text(data.value);
+        
+    }
 
-windowsDoorProcess.addEventListener('message', handleMessageFromWorker);
-
+// message handler for person process
 personProcess.onmessage = function(e) {
     let data = e.data;
 
@@ -93,4 +109,25 @@ personProcess.onmessage = function(e) {
 
     else if(data.subject == 'glucose')
         $("#glucose-number").text(data.value);
-  }
+        
+    }
+// message handler for smoke process          
+    smokeSensorProcess.onmessage = function(e) {
+        let data = e.data;
+    
+        if(data.subject == 'smoke'){
+            if(data.value == true) {
+                $("#smoke-value").text("YES").removeClass("green").addClass("red");
+            }
+            else {
+                $("#smoke-value").text("NO").removeClass("red").addClass("green");
+            }
+        }
+    }  
+
+    uploadingPhotosProcess.onmessage = function(e) {
+        let data = e.data;
+        
+        $("#photo-value").text(data);
+        console.log(data);           
+    }  
