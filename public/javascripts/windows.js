@@ -1,10 +1,10 @@
 // CODE FOR WINDOW / DOOR PROCESS
 
-// connectiong to the server
 importScripts('/socket.io/socket.io.js');
 
 // const
 const clientType = "house";
+const socket = io();
 
 // defining data structures
 const Gateway = {
@@ -20,8 +20,6 @@ let window1 = {subject:"window1", value: Gateway.CLOSED};
 let window2 = {subject:"window2", value: Gateway.CLOSED};
 let door1 = {subject:"door1", value: Gateway.CLOSED};
 
-var socket = io();
-
 // defining helpers functions 
 let toggleGatewayStatus = (status) => {
     if(status==Gateway.CLOSED){
@@ -33,20 +31,32 @@ let toggleGatewayStatus = (status) => {
 }
 
 function publish(subject, message) {
-    
     socket.emit (subject, message);
-
-    console.log('Sent! Subject: ' + subject + '     | Message: ' + message );
+    //console.log('Sent! Subject: ' + subject + '     | Message: ' + message );
 }
 
+
+// message event handler
 onmessage = function(e) {
-    console.log('Message received from main script');
-    var workerResult = 'Result: ' + (e.data);
-    console.log(workerResult);
-    console.log('Posting message back to main script');
-    postMessage(workerResult);
+    let objectTag = e.data;
+
+    if(objectTag == "window1") {
+        window1.value = toggleGatewayStatus(window1.value)
+        publish(clientType, window1);
+        postMessage(window1);
+    }
+    else if(objectTag == "window2") {
+        window2.value = toggleGatewayStatus(window2.value)
+        publish(clientType, window2);
+        postMessage(window2);
+    }
+    else if(objectTag== "door1") {
+        door1.value = toggleGatewayStatus(door1.value)
+        publish(clientType, door1);
+        postMessage(door1);
+    }
+    
   }
 
-
-setInterval(function(){ console.log("abc")}, 2000);
+//setInterval(function(){ console.log("abc")}, 2000);
 

@@ -13,8 +13,9 @@ Object.freeze(Gateway);
 
 
 // init workers
-//var personProcess = new Worker('javascripts/windows.js');
-//let windowsProcess = new Worker('javascripts/windows.js');
+const personProcess = new Worker('javascripts/person.js');
+
+const windowsDoorProcess = new Worker('javascripts/windows.js');
 
 
 //setInterval(function(){ windowsProcess.postMessage('Hello World');}, 2000);
@@ -29,27 +30,6 @@ Object.freeze(Gateway);
 
 //var securityProcess = new Worker('javascripts/windows.js');
 
-/* document.getElementById("win1-btn").addEventListener("click", test); 
-
-function test() {
-    console.log("xx");
-    console.log(windowsProcess);
-    windowsProcess.postMessage('Hello World');
-}; */
-
-const windowsProcess = new Worker("javascripts/windows.js")
-
-const x = document.getElementById("win1-btn");
-x.onclick = inputchange;
-
-function inputchange(e) {
-    windowsProcess.postMessage("x");
-  }
-
-
-
-
-
 // testing function to trigger events
 //setInterval(function(){  $("#window-btn").click(); }, 2000);
 
@@ -57,42 +37,60 @@ function inputchange(e) {
 // run when DOM loaded
 $(document).ready(function () {
 
-    //displayProcesessStatus();
+    displayProcesessStatus();
 
     $("#win1-btn").click(function() {
-
-        windowsProcess.postMessage("x");
-          
-/* 
-        window1.value = toggleGatewayStatus(window1.value);
-        $("#win1-status").text(window1.value);
-        publish(clientType, window1); */
-
+        windowsDoorProcess.postMessage("window1");
     });
 
-    $("#win2-btn").click(function() {
 
-        window2.value = toggleGatewayStatus(window2.value);
-        $("#win2-status").text(window2.value);
-        publish(clientType, window2);
-    
-        });
+    $("#win2-btn").click(function() {
+        windowsDoorProcess.postMessage("window2");
+    });
 
     $("#doo1-btn").click(function() {
-
-        door1.value = toggleGatewayStatus(door1.value);
-        $("#doo1-status").text(door1.value);
-        publish(clientType, door1);
-    
-        });    
+        windowsDoorProcess.postMessage("door1");;
+    });    
 });
-/* 
-function displayProcesessStatus() {
-    if(windowsProcess =! null) {
-        $("#windoo-status").text("UP");
-    } 
-    else
-        $("#windoo-status").text("DOWN") 
-}
- */
 
+
+// for future refactoring, redundant code
+function displayProcesessStatus() {
+
+    let ref1 = $("#windoo-status");
+    let ref2 =  $("#pers-status");
+
+    statusUpdate1 = (ref) => (personProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate2 = (ref) => (windowsDoorProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    
+
+    statusUpdate1(ref1);
+    statusUpdate2(ref2);
+
+}
+function handleMessageFromWorker(msg) {
+
+
+    console.log('incoming message from worker, msg:', msg.data);
+    if(msg.data.subject == 'window1')
+        $("#win1-status").text(msg.data.value);
+    else if (msg.data.subject == 'window2')
+        $("#win2-status").text(msg.data.value);
+    else if (msg.data.subject == 'door1')
+        $("#doo1-status").text(msg.data.value);
+}
+
+windowsDoorProcess.addEventListener('message', handleMessageFromWorker);
+
+personProcess.onmessage = function(e) {
+    let data = e.data;
+
+    if(data.subject == 'steps')
+        $("#steps-number").text(data.value);
+    
+    else if(data.subject == 'heart')
+        $("#heart-number").text(data.value);
+
+    else if(data.subject == 'glucose')
+        $("#glucose-number").text(data.value);
+  }
