@@ -33,6 +33,7 @@ onmessage = function(e) {
 
     if(authFlag == true){
         postMessage(login + " autheticated");
+        publish(clientType, {subject: "authetication", value: login})
     }
     else postMessage("wrong credentials");
     
