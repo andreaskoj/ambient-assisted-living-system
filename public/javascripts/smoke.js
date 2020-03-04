@@ -13,5 +13,4 @@ setInterval(function(){
     smoke.value == true ? smoke.value = false : smoke.value = true;
     publish(clientType, smoke);
     postMessage(smoke); 
-
   }, getRndInteger(15000,30000));

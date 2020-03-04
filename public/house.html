@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Ambient Assisted Living - House interaction interface</title>
+        <title>Ambient Assisted Living</title>
             <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,55 +25,86 @@
             .input {
                 width: 100px;
             }
+            .space {
+                height: 30px;
+                width: auto;
+            }
             
         </style>
     </head>
     <body>
         <div class="container">
-            <h1>Ambient Assisted Living System - House interaction interface</h1>
-            <br>
-            <br>
-            <br>
+            <h1><b>Ambient Assisted Living System</b></h1>
+            <h2>House interaction interface</h2>
+            
+            <div class="space"></div>
+            
             <div class="row">
                 <div class="col">
-                    
-                    <h2>Person</h2>
+                    <h3>Person</h3>
                     <p class="status-sec">Process status:</p> <b><span id="pers-status"></span></b>
                     <div><span class="status-sec">Steps (acc): </span><span id="steps-number">0</span></div>
                     <div><span class="status-sec">Heart rate (bmp): </span><span id="heart-number">0</span></div>
                     <div><span class="status-sec">Glucose (mg/dl): </span><span id="glucose-number">0</span></div>
-                    
-                    <h2>Windows / Doors </h2>
+                </div>
+                <div class="col">
+                    <h3>Windows / Doors </h3>
                     <p class="status-sec">Process status:</p> <b><span id="windoo-status"></span></b>
                     <div><span class="status-sec">Window 1: <span id="win1-status">closed</span></span><button id="win1-btn">Toggle window</button></div>
                     <div><span class="status-sec">Window 2: <span id="win2-status">closed</span></span><button id="win2-btn">Toggle window</button></div>
                     <div><span class="status-sec">Door 1: <span id="doo1-status">closed</span></span><button id="doo1-btn">Toggle door</button></div>
-                    
-                    <h2>Smoke detection</h2>
-                    <p class="status-sec">Process status:</p> <b><span id="smoke-status"></span></b>
-                    <div><span class="status-sec">Smoke detected: </span><span id="smoke-value" class="green">NO</span></div>
-                    
-                    <h2>Face recognition</h2>
-                    <p>Process status:</p>
                 </div>
-                <div class="col">
-                    <h2>Uploading photos</h2>
+                </div>   
+
+                <div class="space"></div>
+
+                <div class="row">
+                    <div class="col">  
+                        <h3>Smoke detection</h3>
+                        <p class="status-sec">Process status:</p> <b><span id="smoke-status"></span></b>
+                        <div><span class="status-sec">Smoke detected: </span><span id="smoke-value" class="green">NO</span></div>
+                     </div>  
+                     <div class="col">  
+                    <h3>Uploading photos</h3>
                     <p class="status-sec">Process status:</p> <b><span id="uploading-status"></span></b>
                     <div><span class="status-sec">Photos in carusel: </span><span id="photo-value"></span></div>
                     <div>
                         <span >Add: </span>
                         <input type="text" class="input" id="input-photo" placeholder="Photo name">
-                        <button id="pho-btn">Upload photo</button>
-                        
+                        <button id="pho-btn">Upload photo</button> 
                     </div>
-                    
-                    <h2>Composite logic</h2>
-                    <p>Process status:</p>
-                    
-                    <h2>Authetication</h2>
-                    <p>Process status:</p>
+                </div> 
                 </div>
-              </div>
+                <div class="space"></div>
+
+                <div class="row">
+                <div class="col">
+                    <h3>Authetication</h3>
+                    <p class="status-sec">Process status:</p> <b><span id="auth-status"></span></b>
+                    <div>
+                        <input type="text" class="input" id="log" placeholder="Login">
+                        <input type="password" class="input" id="pas" placeholder="Password">
+                        <button id="sec-btn">Autheticate</button>
+                    </div>
+                    <div><span class="status-sec">Authetication result: </span><span id="result-value"></span></div>
+                </div>
+                <div class="col">
+                    <h3>Facial recognition</h3>
+                    <p class="status-sec">Process status:</p> <b><span id="facial-status"></span></b>
+                </div>
+                </div>
+
+                <div class="space"></div>
+
+                <div class="row">
+                <div class="col">
+                    <h3>Composite logic</h3>
+                    <p class="status-sec">Process status:</p> <b><span id="logic-status"></span></b>
+                </div>
+                </div>
+
+                
+             
 
           </div>
 

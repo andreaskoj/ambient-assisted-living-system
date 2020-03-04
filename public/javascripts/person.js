@@ -10,14 +10,6 @@ let steps = {subject:"steps", value: 0};
 let heart = {subject:"heart", value: 0};
 let glucose = {subject:"glucose", value: 0};
 
-function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
-
-function publish(subject, message) {
-    socket.emit (subject, message);
-}  
-
 // interval for steps
 setInterval(function(){
       steps.value += getRndInteger(0, 150);

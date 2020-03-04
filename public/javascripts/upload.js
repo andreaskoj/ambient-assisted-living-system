@@ -13,5 +13,4 @@ onmessage = function(e) {
     photos.push(photoName);
     countPhotos ++;
     postMessage(countPhotos);
-    console.log(photoName);
   }

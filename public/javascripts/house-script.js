@@ -21,12 +21,13 @@ const smokeSensorProcess = new Worker('javascripts/smoke.js');
 
 const uploadingPhotosProcess = new Worker('javascripts/upload.js');
 
+const securityProcess = new Worker('javascripts/security.js');
+
 //setInterval(function(){ windowsProcess.postMessage('Hello World');}, 2000);
 
-//var faceRecognitionProcess = new Worker('javascripts/windows.js');
+//var facialProcess = new Worker('javascripts/windows.js');
 
-
-//var exectueCompositLogicProcess = new Worker('javascripts/windows.js');
+//var logicProcess = new Worker('javascripts/windows.js');
 
 //var securityProcess = new Worker('javascripts/windows.js');
 
@@ -54,9 +55,27 @@ $(document).ready(function () {
 
     $("#pho-btn").click(function() {
         let name = $("#input-photo").val();
-        uploadingPhotosProcess.postMessage(name);
+        
+                
+        if(name.length != 0){
+            console.log("sss");
+            uploadingPhotosProcess.postMessage(name);
+        }
+
         // clean input
         $("#input-photo").val('');
+    }); 
+
+    $("#sec-btn").click(function() {
+        let log = $("#log").val();
+        let pas = $("#pas").val();
+
+        let arr = [log,pas];
+        securityProcess.postMessage(arr);
+
+        // clean theinput
+        $("#log").val('');
+        $("#pas").val('');
     });   
 
 
@@ -70,17 +89,25 @@ function displayProcesessStatus() {
     let ref2 =  $("#pers-status");
     let ref3 =  $("#smoke-status");
     let ref4 =  $("#uploading-status");
-
-    statusUpdate1 = (ref) => (personProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    let ref5 =  $("#auth-status");
+    let ref6 =  $("#facial-status");
+    let ref7 =  $("#logic-status");
+ 
+    statusUpdate1 = (ref) => (typeof personProcess !== 'undefined') ? ref.text("UP") : ref.text("DOWN"); 
     statusUpdate2 = (ref) => (windowsDoorProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
-    statusUpdate2 = (ref) => (smokeSensorProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
-    statusUpdate2 = (ref) => (uploadingPhotosProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate3 = (ref) => (smokeSensorProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate4 = (ref) => (uploadingPhotosProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate5 = (ref) => (securityProcess != null) ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate6 = (ref) => (typeof facialProcess !== 'undefined') ? ref.text("UP") : ref.text("DOWN"); 
+    statusUpdate7 = (ref) => (typeof logicProcess !== 'undefined') ? ref.text("UP") : ref.text("DOWN"); 
     
-
     statusUpdate1(ref1);
     statusUpdate2(ref2);
-    statusUpdate2(ref3);
-    statusUpdate2(ref4);
+    statusUpdate3(ref3);
+    statusUpdate4(ref4);
+    statusUpdate5(ref5);
+    statusUpdate6(ref6);
+    statusUpdate7(ref7);
 
 }
 
@@ -127,7 +154,10 @@ personProcess.onmessage = function(e) {
 
     uploadingPhotosProcess.onmessage = function(e) {
         let data = e.data;
-        
         $("#photo-value").text(data);
-        console.log(data);           
+    }  
+
+    securityProcess.onmessage = function(e) {
+        let data = e.data;
+        $("#result-value").text(data);
     }  

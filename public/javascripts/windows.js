@@ -1,6 +1,7 @@
 // CODE FOR WINDOW / DOOR PROCESS
 
 importScripts('/socket.io/socket.io.js');
+importScripts('lib.js');
 
 // const
 const clientType = "house";
@@ -28,11 +29,6 @@ let toggleGatewayStatus = (status) => {
     else {
         return Gateway.CLOSED
     }
-}
-
-function publish(subject, message) {
-    socket.emit (subject, message);
-    //console.log('Sent! Subject: ' + subject + '     | Message: ' + message );
 }
 
 
