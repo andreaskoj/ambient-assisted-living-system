@@ -6,16 +6,77 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+        .dl {
+        
+            border-style:solid;
+            border-color: grey;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .dd {
+            background-color: black;
+            color: ivory;
+            border-style:solid;
+            border-color: black;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        #dashboard-container {
+            width: 500px;
+        }
+        .display {
+            border-style: solid;
+            width: 500px;
+            height: 350px;
+            font-size: 56px;
+            border-color: grey;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 350px;
+        }
+        input {padding:5px;}
+
+        #cli {
+            width: 350px;
+        }
+        .response {
+            height: 20px;
+        }
+
+
+        </style>
     </head>
     <body>
-        <h1>Ambint Assisted Living System - Dashboard</h1>
-        Dashboard will be implemented here
+        <div class=container>
+            <h1><b>Ambient Assisted Living System</b></h1>
+            <h2>UI devices</h2>
+            <br>
+            <br>
+            <h2>House dashbaord</h2>
+            <div id="dashboard-container" class="dl">
 
-        <br>
-        <br>
-        <h2>Window status:</h2>
-        <h2 id='window-status'>x</h2>
+                <!-- <h5>Personal info:</h5> -->
+                
+                <h5>Theme:</h5>
+                <button id="dark-mode">Light</button> 
+                <button id="light-mode">Dark</button> 
 
+                <h5>Command-line interface:</h5>
+                <input type="text" class="input" id="cli" placeholder="Type your command...">
+                <button id="cli-confirm">Send</button>
+                <div class="response"> </div> 
+            </div>
+            <br>
+            <br>
+
+            <h2>Digital display </h2>
+            <div class="display" id="displayID"></div>
+
+
+        </div>
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
