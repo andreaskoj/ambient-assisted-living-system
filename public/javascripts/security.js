@@ -16,6 +16,47 @@ users.push(u2);
 users.push(u3);
 users.push(u4);
 
+socket.on('validation-channel', function(msg){
+    if(msg.subject == "validate-login") {
+        console.log("validate login");
+
+        let userFlag = false;
+        users.forEach(element => {
+            if(element.login == msg.value) {
+                console.log(element);
+                userFlag = true;
+            }
+        });
+
+        if (userFlag == true) {
+            publish("validation-channel", {subject:"validate-login-result", value: "yes"})
+        }
+
+        else{
+            publish("validation-channel", {subject:"validate-login-result", value: "no"})
+        } 
+
+    }
+
+    else if (msg.subject == "validate-password"){
+        
+        let userFlag = false;
+        users.forEach(element => {
+            if(element.password == msg.value) {
+                userFlag = true;
+            }
+        });
+
+        if (userFlag == true) {
+            publish("validation-channel", {subject:"validate-password-result", value: "yes"})
+        }
+
+        else{
+            publish("validation-channel", {subject:"validate-password-result", value: "no"})
+        } 
+    }
+
+});
 
 onmessage = function(e) {
     let login = e.data[0];

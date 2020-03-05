@@ -25,6 +25,10 @@
             .input {
                 width: 100px;
             }
+
+             #composite-logic{
+                width: 250px;
+            }
             .space {
                 height: 30px;
                 width: auto;
@@ -90,7 +94,10 @@
                 </div>
                 <div class="col">
                     <h3>Facial recognition</h3>
-                    <p class="status-sec">Process status:</p> <b><span id="facial-status"></span></b>
+                    <p class="status-sec">Process status:</p> <b><span id="facial-status"></span></b><br>
+                    <button id="face1">Recognize Face 1</button> 
+                    <button id="face2">Recognize Face 2</button>
+                    <button id="face3">Recognize Face 3</button>  
                 </div>
                 </div>
 
@@ -99,7 +106,9 @@
                 <div class="row">
                 <div class="col">
                     <h3>Composite logic</h3>
-                    <p class="status-sec">Process status:</p> <b><span id="logic-status"></span></b>
+                    <p class="status-sec">Process status:</p> <b><span id="logic-status"></span></b><br>
+                    <input type="text" class="input" id="composite-logic" placeholder="Add your composite logic rule">
+                    <button id="add-rule">Add</button> 
                 </div>
                 </div>
 

@@ -29,19 +29,22 @@ io.on('connection', function(socket){
   socket.on('house', function(msg){
     console.log('Message from house: ' + msg.subject + ' ' + msg.value);
 
-    // emitting to dashboard
-    io.emit('dashboard', msg);
-
-   // emitting to log
+    //emitting to log
     io.emit('log', msg);
   });
 
   socket.on('dashboard', function(msg){
-    console.log('massage: ' + msg);
+    console.log('Message from dashboard: ' + msg.subject + ' ' + msg.value);
+
+    io.emit('dashboard', msg);
+    io.emit('log', msg);
   });
 
-  socket.on('msg', function(msg){
-    console.log('massage: ' + msg);
+  socket.on('validation-channel', function(msg){
+    console.log('Message from validation-channel: ' + msg.subject + ' ' + msg.value);
+
+    io.emit('validation-channel', msg);
+    io.emit('log', msg);
   });
  
 });

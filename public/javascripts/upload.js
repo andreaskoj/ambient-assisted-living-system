@@ -6,8 +6,12 @@ importScripts('lib.js');
 let photos = ["mountain","lake","family"];
 let countPhotos = photos.length;
 
-const clientType = "house";
+const clientType = "dashboard";
 const socket = io();
+
+photos.forEach(element => {
+  publish(clientType, {subject: "photo", value: element})
+});
 
 
 postMessage(countPhotos);
